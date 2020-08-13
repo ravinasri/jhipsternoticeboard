@@ -1,0 +1,36 @@
+
+entity Author
+{
+firstname String,
+lastname String,
+creationdate LocalDate
+}
+
+entity Board {
+	title String
+    
+}
+
+entity Notice
+{
+title String,
+description String,
+imageurl String,
+url String,
+hashtags String
+
+
+}
+
+relationship OneToMany
+{
+Board{noticeList} to Notice
+}
+
+relationship ManyToOne {
+    Notice{author(id)} to Author
+}
+
+
+
+

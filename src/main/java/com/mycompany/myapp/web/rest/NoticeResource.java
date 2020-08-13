@@ -67,17 +67,25 @@ public class NoticeResource {
      * or with status {@code 500 (Internal Server Error)} if the notice couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/notices")
-    public ResponseEntity<Notice> updateNotice(@RequestBody Notice notice) throws URISyntaxException {
+    @PutMapping("/notices/{id}")
+    public ResponseEntity<Notice> updateNotice(@PathVariable(value = "id") Long Id,@RequestBody Notice notice) throws URISyntaxException {
         log.debug("REST request to update Notice : {}", notice);
-        if (notice.getId() == null) {
-            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
-        }
-        Notice result = noticeRepository.save(notice);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, notice.getId().toString()))
-            .body(result);
+        Notice notices = noticeRepository.findById(Id);
+        notices.setTitle(notice.getTitle());
+        notices.setDescription(notice.getDescription());
+        notices.setImageurl(notice.getImageurl());
+        notices.setUrl(notice.getUrl());
+        notices.setHashtags(notice.getHashtags());
+        notices.setAuthor(notice.getAuthor());
+        notices.setBoard(notice.getAuthor());
+        final Notice updatedNotice = noticeRepository.save(notices);
+        return ResponseEntity.ok(updatedNotice);
+        
+     
     }
+    
+    
+   
 
     /**
      * {@code GET  /notices} : get all the notices.

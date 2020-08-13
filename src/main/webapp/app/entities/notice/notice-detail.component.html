@@ -1,0 +1,58 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="notice">
+            <h2><span jhiTranslate="jhipsterNoticeBoardApp.notice.detail.title">Notice</span> {{ notice.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="jhipsterNoticeBoardApp.notice.title">Title</span></dt>
+                <dd>
+                    <span>{{ notice.title }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterNoticeBoardApp.notice.description">Description</span></dt>
+                <dd>
+                    <span>{{ notice.description }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterNoticeBoardApp.notice.imageurl">Imageurl</span></dt>
+                <dd>
+                    <span>{{ notice.imageurl }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterNoticeBoardApp.notice.url">Url</span></dt>
+                <dd>
+                    <span>{{ notice.url }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterNoticeBoardApp.notice.hashtags">Hashtags</span></dt>
+                <dd>
+                    <span>{{ notice.hashtags }}</span>
+                </dd>
+                <dt><span jhiTranslate="jhipsterNoticeBoardApp.notice.author">Author</span></dt>
+                <dd>
+                    <div *ngIf="notice.author">
+                        <a [routerLink]="['/author', notice.author?.id, 'view']">{{ notice.author?.id }}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="jhipsterNoticeBoardApp.notice.board">Board</span></dt>
+                <dd>
+                    <div *ngIf="notice.board">
+                        <a [routerLink]="['/board', notice.board?.id, 'view']">{{ notice.board?.id }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/notice', notice.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

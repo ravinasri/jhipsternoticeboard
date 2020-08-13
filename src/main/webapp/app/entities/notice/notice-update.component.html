@@ -1,0 +1,72 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-notice-heading" jhiTranslate="jhipsterNoticeBoardApp.notice.home.createOrEditLabel">Create or edit a Notice</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhipsterNoticeBoardApp.notice.title" for="field_title">Title</label>
+                    <input type="text" class="form-control" name="title" id="field_title"
+                           formControlName="title"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhipsterNoticeBoardApp.notice.description" for="field_description">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                           formControlName="description"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhipsterNoticeBoardApp.notice.imageurl" for="field_imageurl">Imageurl</label>
+                    <input type="text" class="form-control" name="imageurl" id="field_imageurl"
+                           formControlName="imageurl"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhipsterNoticeBoardApp.notice.url" for="field_url">Url</label>
+                    <input type="text" class="form-control" name="url" id="field_url"
+                           formControlName="url"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhipsterNoticeBoardApp.notice.hashtags" for="field_hashtags">Hashtags</label>
+                    <input type="text" class="form-control" name="hashtags" id="field_hashtags"
+                           formControlName="hashtags"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhipsterNoticeBoardApp.notice.author" for="field_author">Author</label>
+                    <select class="form-control" id="field_author" name="author" formControlName="author">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="authorOption.id === editForm.get('author')!.value?.id ? editForm.get('author')!.value : authorOption" *ngFor="let authorOption of authors; trackBy: trackById">{{ authorOption.id }}</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="jhipsterNoticeBoardApp.notice.board" for="field_board">Board</label>
+                    <select class="form-control" id="field_board" name="board" formControlName="board">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="boardOption.id === editForm.get('board')!.value?.id ? editForm.get('board')!.value : boardOption" *ngFor="let boardOption of boards; trackBy: trackById">{{ boardOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
